@@ -20,24 +20,13 @@
           >
             {{ t('cloud.hero.subtitle') }}
           </p>
-          <div
-            class="mt-4 mb-6 flex gap-[17px] max-md:flex-col max-md:gap-2"
-            aria-label="CoStrict Cloud actions"
-          >
+          <div class="mt-4 mb-6 flex" aria-label="CoStrict Cloud actions">
             <button
               class="inline-flex h-[34px] w-36 cursor-pointer items-center justify-center rounded border-0 bg-gradient-to-r from-[#177aff] to-[#5ce8d1] text-[10px] leading-none font-bold tracking-normal text-white transition-[transform,border-color,background,box-shadow] duration-[180ms] ease-in-out hover:-translate-y-px max-md:w-full max-md:max-w-36"
               type="button"
               @click="openCloud"
             >
               {{ t('cloud.hero.primaryCta') }}
-            </button>
-            <button
-              class="inline-flex h-[34px] w-36 cursor-pointer items-center justify-center gap-1.5 rounded border border-[#2a61e4] bg-[#0d1f3b] text-[10px] leading-none font-bold tracking-normal text-white transition-[transform,border-color,background,box-shadow] duration-[180ms] ease-in-out hover:-translate-y-px hover:border-[#5ce8d1] max-md:w-full max-md:max-w-36"
-              type="button"
-              @click="openManual"
-            >
-              {{ t('cloud.hero.secondaryCta') }}
-              <span aria-hidden="true">›</span>
             </button>
           </div>
         </div>
@@ -263,14 +252,8 @@ const currentHeroImage = computed(() => {
   return isEnglishLocale.value ? CloudHeroEnImage : CloudHeroZhImage
 })
 
-const docsBaseUrl = computed(() => `https://docs.costrict.ai${isEnglishLocale.value ? '/en' : ''}`)
-
 const openCloud = () => {
   window.open('https://zgsm.sangfor.com/cloud', '_blank', 'noopener')
-}
-
-const openManual = () => {
-  window.open(docsBaseUrl.value, '_blank', 'noopener')
 }
 
 useHead({

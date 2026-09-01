@@ -4,7 +4,6 @@ import { useI18n } from 'vue-i18n'
 import { useHead } from '@unhead/vue'
 import AugustDeveloperMonthEntry from './components/AugustDeveloperMonthEntry.vue'
 import { useScrollAnimation } from './hooks/useScrollAnimation'
-import CcfLogo from '@/assets/home/ccf_logo.webp'
 import {
   CARD1_URL,
   CARD2_URL,
@@ -16,9 +15,7 @@ import {
 
 defineOptions({ name: 'OperationPage' })
 
-const { t, locale } = useI18n()
-
-const isEnglish = computed(() => locale.value === 'en')
+const { t } = useI18n()
 
 useHead({
   title: 'CoStrict 运营活动 - 免费领取 Credits，加速你的 AI 编程体验',
@@ -62,34 +59,19 @@ const [card1Ref, card2Ref, card3Ref, card4Ref, history1Ref] = useScrollAnimation
 
 <template>
   <div class="min-h-screen pt-16 bg-black text-white text-sm leading-relaxed">
-    <!-- CCF 大赛浮动入口 -->
-    <router-link
-      v-if="!isEnglish"
-      :to="CCF_COMPETITION_PATH"
-      class="absolute right-0 top-[88px] z-[1000] block cursor-pointer md:right-[-15px] md:top-20 md:transition-transform md:duration-300 md:ease-in md:hover:-translate-x-[15px]"
-    >
-      <img
-        :src="CcfLogo"
-        alt="CCF 大赛"
-        class="w-[120px] md:w-[198px] h-auto pointer-events-none select-none"
-      />
-    </router-link>
-
     <section class="activity-ledger" aria-labelledby="active-activities-title">
       <h2 id="active-activities-title" class="activity-section-title">
         {{ t('operation.activeTitle') }}
       </h2>
 
       <div class="activity-list">
-        <AugustDeveloperMonthEntry data-activity-row data-activity-status="active" />
-
         <article
           ref="card1Ref"
           class="scroll-animation-wrapper activity-row"
           data-activity-row
           data-activity-status="active"
         >
-          <span class="activity-index">02</span>
+          <span class="activity-index">01</span>
           <div class="activity-main">
             <div class="activity-title-line">
               <h3>{{ t('operation.card1Title') }}</h3>
@@ -108,7 +90,7 @@ const [card1Ref, card2Ref, card3Ref, card4Ref, history1Ref] = useScrollAnimation
           data-activity-row
           data-activity-status="active"
         >
-          <span class="activity-index">03</span>
+          <span class="activity-index">02</span>
           <div class="activity-main">
             <div class="activity-title-line">
               <h3>{{ t('operation.card2Title') }}</h3>
@@ -138,7 +120,7 @@ const [card1Ref, card2Ref, card3Ref, card4Ref, history1Ref] = useScrollAnimation
           data-activity-row
           data-activity-status="active"
         >
-          <span class="activity-index">04</span>
+          <span class="activity-index">03</span>
           <div class="activity-main">
             <div class="activity-title-line">
               <h3>{{ t('operation.card3Title') }}</h3>
@@ -164,24 +146,6 @@ const [card1Ref, card2Ref, card3Ref, card4Ref, history1Ref] = useScrollAnimation
             {{ t('operation.card3Btn') }}<span aria-hidden="true">→</span>
           </a>
         </article>
-
-        <article
-          ref="card4Ref"
-          class="scroll-animation-wrapper activity-row"
-          data-activity-row
-          data-activity-status="active"
-        >
-          <span class="activity-index">05</span>
-          <div class="activity-main">
-            <div class="activity-title-line">
-              <h3>{{ t('operation.card4Title') }}</h3>
-            </div>
-            <p>{{ t('operation.card4Desc') }}</p>
-          </div>
-          <router-link :to="CCF_COMPETITION_PATH" class="activity-link">
-            {{ t('operation.card4Btn') }}<span aria-hidden="true">→</span>
-          </router-link>
-        </article>
       </div>
     </section>
 
@@ -190,13 +154,34 @@ const [card1Ref, card2Ref, card3Ref, card4Ref, history1Ref] = useScrollAnimation
         {{ t('operation.historyTitle') }}
       </h2>
       <div class="activity-list">
+        <AugustDeveloperMonthEntry />
+
+        <article
+          ref="card4Ref"
+          class="scroll-animation-wrapper activity-row activity-row--ended"
+          data-activity-row
+          data-activity-status="ended"
+        >
+          <span class="activity-index">02</span>
+          <div class="activity-main">
+            <div class="activity-title-line">
+              <h3>{{ t('operation.card4Title') }}</h3>
+              <span class="activity-status">{{ t('operation.card4Badge') }}</span>
+            </div>
+            <p>{{ t('operation.card4Desc') }}</p>
+          </div>
+          <router-link :to="CCF_COMPETITION_PATH" class="activity-link">
+            {{ t('operation.card4Btn') }}<span aria-hidden="true">→</span>
+          </router-link>
+        </article>
+
         <article
           ref="history1Ref"
           class="scroll-animation-wrapper activity-row activity-row--ended"
           data-activity-row
           data-activity-status="ended"
         >
-          <span class="activity-index">01</span>
+          <span class="activity-index">03</span>
           <div class="activity-main">
             <div class="activity-title-line">
               <h3>{{ t('operation.history1Title') }}</h3>
@@ -298,12 +283,25 @@ const [card1Ref, card2Ref, card3Ref, card4Ref, history1Ref] = useScrollAnimation
   letter-spacing: 0;
 }
 
-.activity-value,
-.activity-status {
+.activity-value {
   color: rgba(118, 221, 199, 0.78);
   font-size: 12px;
   font-weight: 600;
   line-height: 1.5;
+}
+
+.activity-status {
+  display: inline-flex;
+  height: 18px;
+  align-items: center;
+  padding: 0 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 0.66);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 9px;
+  font-weight: 750;
+  line-height: 1;
 }
 
 .activity-main > p {
@@ -438,8 +436,8 @@ const [card1Ref, card2Ref, card3Ref, card4Ref, history1Ref] = useScrollAnimation
   color: rgba(255, 255, 255, 0.54);
 }
 
-.activity-row--ended .activity-status {
-  color: rgba(255, 255, 255, 0.66);
+.activity-row--ended .activity-title-line {
+  align-items: center;
 }
 
 .activity-row--ended .activity-link {

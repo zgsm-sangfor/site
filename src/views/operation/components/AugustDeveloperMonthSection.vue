@@ -37,7 +37,7 @@ const models = [
   { name: 'MiniMax M3', wordmark: 'MiniMax' },
   { name: 'Step-3.7-flash', wordmark: 'StepFun' },
   { name: 'Mimo-v2.5-pro', wordmark: 'MiMo' },
-  { name: 'DeepSeek-V4-Flash', wordmark: 'deepseek' },
+  { name: 'DeepSeek-V4-Flash', wordmark: 'DeepSeek' },
 ] as const
 
 const existingModels = [
@@ -115,6 +115,7 @@ const capabilities = computed(() =>
           :style="`--spark-x:${spark.x};--spark-y:${spark.y};--spark-size:${spark.size};--spark-delay:${spark.delay};--spark-duration:${spark.duration}`"
           aria-hidden="true"
         ></span>
+        <span class="campaign-hero__status">{{ t('operation.august.endedBadge') }}</span>
         <span class="campaign-hero__eyebrow">{{ t('operation.august.heroEyebrow') }}</span>
         <h1 id="august-2026-title">{{ t('operation.august.title') }}</h1>
         <p class="campaign-hero__headline">{{ t('operation.august.heroHeadline') }}</p>
@@ -583,6 +584,7 @@ const capabilities = computed(() =>
 }
 
 .campaign-hero__eyebrow,
+.campaign-hero__status,
 .campaign-hero h1,
 .campaign-hero__headline,
 .campaign-hero__lead {
@@ -596,6 +598,25 @@ const capabilities = computed(() =>
   font-size: 13px;
   font-weight: 650;
   line-height: 1.5;
+}
+
+.campaign-hero__status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  margin-bottom: 14px;
+  padding: 3px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.campaign-hero__status + .campaign-hero__eyebrow {
+  display: block;
 }
 
 .campaign-hero h1 {

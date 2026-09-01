@@ -2,24 +2,11 @@
   <header
     class="home-header"
     :class="{
-      'without-notice': !showNotice,
       'is-morphing': scrollProgress > 0,
       'is-overlay': isOverlayRoute,
     }"
     :style="navStyle"
   >
-    <div v-if="showNotice" class="notice-bar">
-      <AugustDeveloperMonthBanner embedded />
-      <button
-        class="notice-close"
-        type="button"
-        :aria-label="t('home.redesign.header.closeNotice')"
-        @click="dismissNotice"
-      >
-        ×
-      </button>
-    </div>
-
     <div class="main-nav-row">
       <div class="main-nav-inner">
         <button
@@ -174,13 +161,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, type RouteLocationRaw } from 'vue-router'
 import GithubStars from '@/components/navbar/GithubStars.vue'
 import LanguageSwitcher from '@/components/navbar/LanguageSwitcher.vue'
 import ProductMenu from '@/components/navbar/ProductMenu.vue'
-import AugustDeveloperMonthBanner from './AugustDeveloperMonthBanner.vue'
 
 defineOptions({
   name: 'SiteHeader',
@@ -193,37 +179,20 @@ interface ProductNavigationItem {
   route: RouteLocationRaw
 }
 
-interface Props {
-  noticeEnabled?: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  noticeEnabled: true,
-})
-
 const { t, locale } = useI18n()
 const router = useRouter()
 const isEnglish = computed(() => locale.value === 'en')
-const showNotice = ref(props.noticeEnabled)
 const scrollProgress = ref(0)
 const isLanguageSwitcherOpen = ref(false)
 const isMobileNavOpen = ref(false)
 const isMobileProductMenuOpen = ref(false)
 let scrollFrame = 0
 const docsUrl = computed(() => `https://docs.costrict.ai${locale.value === 'en' ? '/en' : ''}`)
-const NOTICE_HEIGHT = 34
 const NAV_MORPH_DISTANCE = 72
 const GLASS_REVEAL_START = 48
 const isHomeRoute = computed(() => router.currentRoute.value.name === 'home')
 const isOverlayRoute = computed(
   () => !['home', 'augustDeveloperMonth'].includes(router.currentRoute.value.name as string),
-)
-
-watch(
-  () => props.noticeEnabled,
-  (enabled) => {
-    showNotice.value = enabled
-  },
 )
 
 const navStyle = computed<Record<string, string>>(() => {
@@ -235,11 +204,10 @@ const navStyle = computed<Record<string, string>>(() => {
     Math.max(0, (scrollDistance - GLASS_REVEAL_START) / (NAV_MORPH_DISTANCE - GLASS_REVEAL_START)),
   )
   const glassReveal = glassProgress * glassProgress
-  const originTop = showNotice.value ? NOTICE_HEIGHT : 0
   const lerp = (from: number, to: number) => from + (to - from) * morphProgress
 
   return {
-    '--nav-top': `${originTop + (14 - originTop) * progress}px`,
+    '--nav-top': `${14 * progress}px`,
     '--nav-height': `${lerp(60, 48)}px`,
     '--nav-padding': `${lerp(0, 18)}px`,
     '--nav-gap': `${lerp(28, 24)}px`,
@@ -343,11 +311,6 @@ const handleScroll = () => {
   })
 }
 
-const dismissNotice = () => {
-  showNotice.value = false
-  updateScrollState()
-}
-
 const handleLanguageSwitcherUpdate = (value: boolean) => {
   isLanguageSwitcherOpen.value = value
 }
@@ -373,11 +336,11 @@ onBeforeUnmount(() => {
 .home-header {
   position: relative;
   z-index: var(--z-navbar);
-  height: 94px;
+  height: 60px;
   background: var(--color-home-bg);
 
   &.is-overlay {
-    height: 34px;
+    height: 0;
 
     .main-nav-row {
       position: fixed;
@@ -387,13 +350,6 @@ onBeforeUnmount(() => {
       left: 0;
     }
 
-    &.without-notice {
-      height: 0;
-    }
-  }
-
-  &.without-notice {
-    height: 60px;
   }
 
   &.is-morphing {
@@ -402,49 +358,6 @@ onBeforeUnmount(() => {
     .main-nav-row {
       background: transparent;
     }
-  }
-}
-
-.notice-bar {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 34px;
-  background: #14283f;
-}
-
-.notice-close {
-  padding: 0;
-  border: 0;
-  color: #d9e8fa;
-  background: transparent;
-  font: inherit;
-  cursor: pointer;
-}
-
-.notice-close {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  right: max(var(--home-page-gutter), calc((100% - var(--home-content-max-width)) / 2));
-  display: grid;
-  width: 24px;
-  height: 24px;
-  place-items: center;
-  color: rgba(247, 255, 253, 0.76);
-  font-size: 18px;
-  line-height: 1;
-  transform: translateY(-50%);
-
-  &:hover,
-  &:focus-visible {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.14);
-  }
-
-  &:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.8);
-    outline-offset: 2px;
   }
 }
 
@@ -843,16 +756,6 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 767px) {
-  .notice-bar {
-    gap: 12px;
-    padding: 0 var(--home-page-gutter);
-    font-size: 12px;
-  }
-
-  .notice-close {
-    right: var(--home-page-gutter);
-  }
-
   .main-nav-inner {
     width: calc(100% - 48px);
   }

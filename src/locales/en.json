@@ -30,9 +30,6 @@
         "organizationDescription": "CoStrict is an enterprise AI coding platform built for real R&D workflows."
       },
       "header": {
-        "notice": "This announcement can be replaced with campaign copy and dismissed",
-        "noticeLink": "Learn more",
-        "closeNotice": "Dismiss announcement",
         "product": "Product",
         "pricing": "Pricing",
         "docs": "Docs",
@@ -213,13 +210,6 @@
         "backToTop": "Back to top"
       }
     },
-    "augustBanner": {
-      "campaignName": "CoStrict August Developer Month",
-      "stage1Text": "Existing users receive an extra 20% Credits",
-      "stage2Text": "5 new models are now live",
-      "stage3Text": "All three upgrades are now live",
-      "ariaLabel": "View CoStrict August Developer Month details"
-    },
     "slogan": {
       "title": "CoStrict",
       "subTitle": "An AI Coding Platform for Serious Development",
@@ -305,7 +295,6 @@
       "title": "AI-Powered Cloud Coding Workspace",
       "subtitle": "Remotely connect to your local computer or private server, and complete AI coding, skill invocation, and project collaboration in the cloud.",
       "primaryCta": "Enter CoStrict Cloud",
-      "secondaryCta": "View User Manual",
       "imageAlt": "CoStrict Cloud coding workspace"
     },
     "section2": {
@@ -617,11 +606,11 @@
       "a4": "The CLI reads project files, runs commands and tests directly in your terminal. The IDE plugins put related actions and change review inside the editor interface. Choose the entry point that fits your current environment."
     },
     "finalCta": {
-      "title": "Ready to let CoStrict CLI take over your development loop?",
-      "description": "Get started and experience closed-loop development.",
+      "title": "Ready to build with CoStrict CLI?",
+      "description": "From understanding requirements and writing code to testing and debugging, let the Agent complete the full development workflow in your terminal.",
       "primary": "Get started",
-      "secondary": "Explore IDE plugins",
-      "ideCross": "Prefer working in your editor? Check out the IDE plugins"
+      "crossPrompt": "Prefer working in your IDE?",
+      "crossAction": "Explore the CoStrict IDE plugin"
     }
   },
   "footer": {
@@ -727,6 +716,7 @@
       "summary": "Benefits, models, and product experience are rolling out throughout August.",
       "entrySummary": "User benefits, model ecosystem, and product capabilities are now fully upgraded.",
       "entryAction": "View details",
+      "endedBadge": "Ended",
       "heroEyebrow": "August chapter",
       "heroHeadline": "CoStrict keeps evolving this August",
       "heroLead": "A series of updates across user benefits, model capabilities, and the product experience unfolds throughout August.",
@@ -876,7 +866,7 @@
       },
       "closingTitle": "This August, go deeper with AI coding and build with greater confidence",
       "closingLead": "Credits upgrades · New models · Fully evolved product capabilities — Sign in to CoStrict and experience it now.",
-      "closingAction": "Download the client"
+      "closingAction": "Get started"
     },
     "activeTitle": "Ongoing activities",
     "heroTag": "Hot Activities",
@@ -900,8 +890,8 @@
     "card3Desc": "If you share CoStrict's philosophy of serious coding, join our community. Support the project on GitHub and earn Credits as our thanks.",
     "card4Title": "CCF × CoStrict AI Native Innovation Competition",
     "card4Btn": "Learn More",
-    "card4Desc": "The 2026 CCF Service Computing Innovation Competition and Sangfor CoStrict AI Native Innovation Competition is now open to university students nationwide, exploring AI native application development and intelligent agent system construction.",
-    "card4Badge": "Ongoing",
+    "card4Desc": "The 2026 CCF Service Computing Innovation Competition and Sangfor CoStrict AI Native Innovation Competition brought together university students nationwide to explore AI native application development and intelligent agent system construction.",
+    "card4Badge": "Ended",
     "tableColAction": "Contribution",
     "tableColReward": "Reward",
     "contrib1": "Star the Repo",
@@ -1144,8 +1134,9 @@
       "eyebrow": "CoStrict Plugin",
       "title": "Stay in your editor and finish the next engineering task",
       "description": "Let AI understand the project and make the change, while the final decision stays with you.",
-      "primary": "Install the IDE plugin",
-      "secondary": "Learn about CLI"
+      "primary": "Get started",
+      "crossPrompt": "Prefer working in your terminal?",
+      "crossAction": "Explore CoStrict CLI"
     }
   }
 }

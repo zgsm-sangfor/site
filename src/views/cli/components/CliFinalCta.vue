@@ -34,9 +34,12 @@ const toIde = () => router.push({ name: 'IdeIndex' })
           <button class="cta-button cta-button-primary" type="button" @click="toDownload">
             {{ t('cli.finalCta.primary') }}
           </button>
-          <button class="cta-button cta-button-secondary" type="button" @click="toIde">
-            {{ t('cli.finalCta.secondary') }}
-            <span aria-hidden="true">→</span>
+          <button class="cta-cross-link" type="button" @click="toIde">
+            <span class="cta-cross-context">{{ t('cli.finalCta.crossPrompt') }}</span>
+            <span class="cta-cross-action">
+              {{ t('cli.finalCta.crossAction') }}
+              <span class="cta-cross-arrow" aria-hidden="true">→</span>
+            </span>
           </button>
         </div>
       </div>
@@ -60,15 +63,18 @@ const toIde = () => router.push({ name: 'IdeIndex' })
   position: absolute;
   z-index: 1;
   inset: 0;
+  overflow: hidden;
+  opacity: 0.82;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 66%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 66%, transparent 100%);
+  contain: layout paint;
+  -webkit-mask-image: radial-gradient(ellipse 54% 70% at 50% 54%, #000 12%, transparent 78%);
+  mask-image: radial-gradient(ellipse 54% 70% at 50% 54%, #000 12%, transparent 78%);
 }
 
 .cta-inner {
   position: relative;
   z-index: 2;
-  width: min(760px, calc(100% - 48px));
+  width: min(980px, calc(100% - 48px));
   margin: 0 auto;
   transform: translateY(58px);
 }
@@ -82,7 +88,7 @@ const toIde = () => router.push({ name: 'IdeIndex' })
   transform: translateY(8px);
 
   h2 {
-    max-width: 760px;
+    max-width: 980px;
     margin: 0;
     color: #f3f7fb;
     font-size: 42px;
@@ -101,11 +107,11 @@ const toIde = () => router.push({ name: 'IdeIndex' })
 .cta-actions {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 14px;
-  margin-top: 26px;
+  gap: 24px;
+  margin-top: 32px;
 }
 
 .cta-button {
@@ -148,15 +154,56 @@ const toIde = () => router.push({ name: 'IdeIndex' })
   }
 }
 
-.cta-button-secondary {
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  color: #edf2f7;
-  background: rgba(255, 255, 255, 0.045);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+.cta-cross-link {
+  display: inline-flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2px 7px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  line-height: 22px;
+  cursor: pointer;
 
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.065);
+  &:hover .cta-cross-action {
+    border-color: rgba(218, 230, 242, 0.55);
+    color: #e4edf6;
+  }
+
+  &:focus-visible {
+    border-radius: 4px;
+    outline: 2px solid rgba(101, 207, 230, 0.62);
+    outline-offset: 2px;
+  }
+}
+
+.cta-cross-context {
+  color: #66778b;
+  font-size: 13px;
+}
+
+.cta-cross-action {
+  border-bottom: 1px solid rgba(185, 201, 217, 0.28);
+  color: #b9c9d9;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease;
+}
+
+.cta-cross-arrow {
+  display: inline-block;
+  margin-left: 3px;
+}
+
+@media (min-width: 1024px) {
+  .cta-content h2 {
+    white-space: nowrap;
   }
 }
 
@@ -183,7 +230,8 @@ const toIde = () => router.push({ name: 'IdeIndex' })
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cta-button {
+  .cta-button,
+  .cta-cross-action {
     transition: none;
   }
 }

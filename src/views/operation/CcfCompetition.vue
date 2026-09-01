@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import { useI18n } from 'vue-i18n'
 import { useScrollAnimation } from './hooks/useScrollAnimation'
 import CoverBanner from '@/assets/operation/ccf/cover_banner.webp'
 import QrCodeWechat from '@/assets/operation/ccf/qrcode_wechat.webp'
 
 defineOptions({ name: 'CcfCompetition' })
 
+const { t } = useI18n()
+
 useHead({
-  title: '深信服 CoStrict × CCF：AI 原生开发大赛正式启动，等你来战！',
+  title: '深信服 CoStrict × CCF：AI 原生开发大赛赛事回顾',
   meta: [
-    { name: 'description', content: '2026 年 CCF 服务计算创新大赛暨深信服 CoStrict AI 原生创新大赛（备案号：CCF-TC-26-399）重磅启动！' },
-    { property: 'og:title', content: '深信服 CoStrict × CCF：AI 原生开发大赛正式启动，等你来战！' },
-    { property: 'og:description', content: '2026 年 CCF 服务计算创新大赛暨深信服 CoStrict AI 原生创新大赛重磅启动！' },
+    { name: 'description', content: '回顾 2026 年 CCF 服务计算创新大赛暨深信服 CoStrict AI 原生创新大赛（备案号：CCF-TC-26-399）。' },
+    { property: 'og:title', content: '深信服 CoStrict × CCF：AI 原生开发大赛赛事回顾' },
+    { property: 'og:description', content: '回顾 2026 年 CCF 服务计算创新大赛暨深信服 CoStrict AI 原生创新大赛。' },
     { property: 'og:url', content: 'https://costrict.ai/operation/ccf-competition' },
-    { name: 'twitter:title', content: '深信服 CoStrict × CCF：AI 原生开发大赛正式启动，等你来战！' },
-    { name: 'twitter:description', content: '2026 年 CCF 服务计算创新大赛暨深信服 CoStrict AI 原生创新大赛重磅启动！' },
+    { name: 'twitter:title', content: '深信服 CoStrict × CCF：AI 原生开发大赛赛事回顾' },
+    { name: 'twitter:description', content: '回顾 2026 年 CCF 服务计算创新大赛暨深信服 CoStrict AI 原生创新大赛。' },
   ],
   link: [{ rel: 'canonical', href: 'https://costrict.ai/operation/ccf-competition' }],
 })
@@ -37,12 +40,11 @@ const [
   <div class="min-h-screen pt-16 bg-black text-white text-base leading-relaxed">
     <!-- Hero -->
     <header class="article-hero relative pt-[140px] pb-[60px] px-5 text-center overflow-hidden md:pt-[120px] md:pb-10 md:px-4">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-[40px] bg-[rgba(0,102,255,0.15)] border border-[rgba(0,102,255,0.3)] text-[#197dff] text-sm font-medium mb-6 relative z-[1]">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#00ffb7] animate-[pulse_2s_infinite]"></span>
-        <span>赛事公告</span>
+      <div class="inline-flex items-center px-4 py-1.5 rounded-[40px] bg-white/[0.04] border border-white/[0.14] text-white/65 text-sm font-medium mb-6 relative z-[1]">
+        <span>{{ t('operation.card4Badge') }}</span>
       </div>
       <h1 class="text-[clamp(24px,4vw,32px)] font-bold text-white leading-tight max-w-[1200px] mx-auto mb-5 relative z-[1]">
-        深信服 CoStrict × CCF：AI 原生开发大赛正式启动，等你来战！
+        深信服 CoStrict × CCF：AI 原生开发大赛
       </h1>
     </header>
 
@@ -272,11 +274,6 @@ const [
     pointer-events: none;
     z-index: 0;
   }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .4; }
 }
 
 .highlight-box,

@@ -506,7 +506,9 @@ export const useParticleField = ({
 }: ParticleFieldOptions) => {
   let context: CanvasRenderingContext2D | null = null
   let frame = 0
+  let closingScrollFrame = 0
   let lastFrameTime = 0
+  let lastClosingDrawTime = 0
   let elapsedTime = 0
   let resizeObserver: ResizeObserver | null = null
   let visibilityObserver: IntersectionObserver | null = null
@@ -565,7 +567,7 @@ export const useParticleField = ({
     const targetRadiusX = Math.min(size.width * 0.24, 340)
     const targetRadiusY = Math.min(size.height * 0.24, 112)
     const edgeOffset = Math.max(24, Math.min(size.width, size.height) * 0.08)
-    const count = size.width < 768 ? 72 : size.width < 1100 ? 110 : 160
+    const count = size.width < 768 ? 56 : size.width < 1100 ? 90 : 120
     closingParticles = Array.from({ length: count }, (_, index) => {
       const side = index % 4
       const targetAngle = Math.random() * Math.PI * 2
@@ -594,19 +596,17 @@ export const useParticleField = ({
         size: 0.95 + Math.random() * 0.85,
         alpha: 0.38 + Math.random() * 0.2,
         phase: Math.random() * Math.PI * 2,
-        driftSpeed: 0.28 + Math.random() * 0.34,
-        driftX: 1.2 + Math.random() * 2.8,
-        driftY: 1.2 + Math.random() * 2.8,
-        breatheSpeed: 0.7 + Math.random() * 0.8,
+        driftSpeed: 0.12 + Math.random() * 0.18,
+        driftX: 0.8 + Math.random() * 1.2,
+        driftY: 0.8 + Math.random() * 1.2,
+        breatheSpeed: 0.35 + Math.random() * 0.55,
         color: pickClosingColor(),
       }
     })
     if (canvas.value) canvas.value.dataset.particleCount = `${count}`
   }
 
-  const drawClosing = (time: number) => {
-    if (!context || size.width === 0 || size.height === 0) return
-
+  const updateClosingLayoutState = () => {
     const section = canvas.value?.closest('section')
     if (section) {
       const rect = section.getBoundingClientRect()
@@ -621,6 +621,10 @@ export const useParticleField = ({
       closingFade = 1 - smoothstep(viewportHeight * 0.7, viewportHeight * 0.85, footerContentTop)
     }
     if (canvas.value) canvas.value.dataset.scrollProgress = closingProgress.toFixed(3)
+  }
+
+  const drawClosing = (time: number) => {
+    if (!context || size.width === 0 || size.height === 0) return
 
     context.setTransform(size.pixelRatio, 0, 0, size.pixelRatio, 0, 0)
     context.clearRect(0, 0, size.width, size.height)
@@ -672,7 +676,7 @@ export const useParticleField = ({
         const directionX = particle.tx - particle.sx
         const directionY = particle.ty - particle.sy
         const distance = Math.max(Math.hypot(directionX, directionY), 1)
-        const trailLength = 3 + (1 - convergence) * 11
+        const trailLength = 2 + (1 - convergence) * 6
         context.strokeStyle = `rgba(${particle.color}, ${alpha * 0.34})`
         context.lineWidth = Math.max(0.5, radius * 0.65)
         context.beginPath()
@@ -698,7 +702,10 @@ export const useParticleField = ({
     const bounds = element.getBoundingClientRect()
     const cssWidth = element.clientWidth || bounds.width
     const cssHeight = element.clientHeight || bounds.height
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+    const pixelRatio =
+      variant === 'closing'
+        ? Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.25)
+        : Math.min(window.devicePixelRatio || 1, 2)
     size = { width: cssWidth, height: cssHeight, pixelRatio }
     element.width = Math.max(1, Math.round(cssWidth * pixelRatio))
     element.height = Math.max(1, Math.round(cssHeight * pixelRatio))
@@ -711,6 +718,7 @@ export const useParticleField = ({
     context?.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
     if (variant === 'closing') {
       buildClosingParticles()
+      updateClosingLayoutState()
       drawClosing(elapsedTime)
     }
   }
@@ -838,7 +846,11 @@ export const useParticleField = ({
     if (variant === 'closing') {
       if (isVisible && isPageVisible) {
         elapsedTime += delta / 1000
-        drawClosing(elapsedTime)
+        const shouldDraw = lastClosingDrawTime === 0 || timestamp - lastClosingDrawTime >= 1000 / 45
+        if (shouldDraw) {
+          lastClosingDrawTime = timestamp
+          drawClosing(elapsedTime)
+        }
       }
       canvas.value?.setAttribute(
         'data-animation-state',
@@ -873,14 +885,20 @@ export const useParticleField = ({
 
   const handleClosingScroll = () => {
     if (variant !== 'closing' || !isVisible || !isPageVisible) return
-    if (reducedMotion) drawClosing(elapsedTime)
-    else startAnimation()
+    if (closingScrollFrame) return
+    closingScrollFrame = window.requestAnimationFrame(() => {
+      closingScrollFrame = 0
+      updateClosingLayoutState()
+      if (reducedMotion) drawClosing(elapsedTime)
+      else startAnimation()
+    })
   }
 
   const stopAnimation = () => {
     const element = canvas.value
     if (frame) window.cancelAnimationFrame(frame)
     frame = 0
+    lastClosingDrawTime = 0
     element?.setAttribute('data-animation-state', reducedMotion ? 'reduced-motion' : 'paused')
   }
 
@@ -918,6 +936,7 @@ export const useParticleField = ({
     visibilityObserver = new IntersectionObserver(([entry]) => {
       isVisible = entry?.isIntersecting ?? true
       if (isVisible) {
+        if (variant === 'closing') updateClosingLayoutState()
         draw(elapsedTime)
         startAnimation()
       } else {
@@ -941,6 +960,7 @@ export const useParticleField = ({
   onBeforeUnmount(() => {
     const element = canvas.value
     stopAnimation()
+    if (closingScrollFrame) window.cancelAnimationFrame(closingScrollFrame)
     resizeObserver?.disconnect()
     visibilityObserver?.disconnect()
     element?.removeEventListener('pointermove', handlePointerMove)

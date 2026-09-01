@@ -15,14 +15,14 @@ const { t } = useI18n()
     class="august-campaign-entry"
     data-august-campaign-entry
     data-activity-row
-    data-activity-status="active"
-    :aria-label="t('home.augustBanner.ariaLabel')"
+    data-activity-status="ended"
+    :aria-label="`${t('operation.august.title')} · ${t('operation.august.entryAction')}`"
   >
     <span class="august-campaign-entry__index">01</span>
     <span class="august-campaign-entry__main">
       <span class="august-campaign-entry__title-line">
         <span class="august-campaign-entry__title">{{ t('operation.august.title') }}</span>
-        <span class="august-campaign-entry__new">NEW</span>
+        <span class="august-campaign-entry__status">{{ t('operation.august.endedBadge') }}</span>
       </span>
       <span class="august-campaign-entry__message">{{ t('operation.august.entrySummary') }}</span>
     </span>
@@ -43,13 +43,13 @@ const { t } = useI18n()
   color: inherit;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(90deg, rgba(25, 125, 255, 0.055), transparent 68%);
+  background: transparent;
   transition: background 180ms ease;
 }
 
 .august-campaign-entry:hover,
 .august-campaign-entry:focus-visible {
-  background: linear-gradient(90deg, rgba(25, 125, 255, 0.1), rgba(22, 222, 194, 0.025));
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .august-campaign-entry:focus-visible {
@@ -59,7 +59,7 @@ const { t } = useI18n()
 
 .august-campaign-entry__index {
   padding-top: 4px;
-  color: rgba(98, 157, 239, 0.86);
+  color: rgba(255, 255, 255, 0.38);
   font-size: 10px;
   font-weight: 700;
   line-height: 1.4;
@@ -79,21 +79,21 @@ const { t } = useI18n()
 }
 
 .august-campaign-entry__title {
-  color: rgba(255, 255, 255, 0.94);
+  color: rgba(255, 255, 255, 0.54);
   font-size: 19px;
   font-weight: 600;
   line-height: 1.4;
 }
 
-.august-campaign-entry__new {
+.august-campaign-entry__status {
   display: inline-flex;
   height: 18px;
   align-items: center;
   padding: 0 6px;
-  border: 1px solid rgba(22, 222, 194, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 3px;
-  color: #9cf7e6;
-  background: rgba(22, 222, 194, 0.08);
+  color: rgba(255, 255, 255, 0.66);
+  background: rgba(255, 255, 255, 0.04);
   font-size: 9px;
   font-weight: 750;
   line-height: 1;
@@ -102,7 +102,7 @@ const { t } = useI18n()
 .august-campaign-entry__message {
   display: block;
   margin-top: 10px;
-  color: rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.54);
   font-size: 14px;
   line-height: 1.75;
 }
@@ -112,7 +112,7 @@ const { t } = useI18n()
   align-items: center;
   gap: 8px;
   padding-top: 3px;
-  color: rgba(132, 193, 255, 0.88);
+  color: rgba(132, 193, 255, 0.7);
   font-size: 13px;
   font-weight: 500;
   line-height: 1.6;

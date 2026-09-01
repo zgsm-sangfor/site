@@ -30,9 +30,6 @@
         "organizationDescription": "CoStrict 是面向真实研发流程的企业级 AI 编程平台"
       },
       "header": {
-        "notice": "这是一条公告通知，可以替换活动文案，可关闭",
-        "noticeLink": "了解更多",
-        "closeNotice": "关闭公告",
         "product": "产品",
         "pricing": "定价",
         "docs": "文档",
@@ -213,13 +210,6 @@
         "backToTop": "返回顶部"
       }
     },
-    "augustBanner": {
-      "campaignName": "CoStrict 8月开发者福利月",
-      "stage1Text": "老用户额外获赠20% Credits",
-      "stage2Text": "5大新模型已上线",
-      "stage3Text": "三大升级现已全部上线",
-      "ariaLabel": "查看 CoStrict 8月开发者福利月详情"
-    },
     "slogan": {
       "title": "CoStrict",
       "subTitle": "企业严肃开发的AI编程平台",
@@ -305,7 +295,6 @@
       "title": "AI 驱动的云端编程工作空间",
       "subtitle": "远程连接本地电脑或私有服务器，在云端完成 AI 编程、技能调用与项目协作。",
       "primaryCta": "进入 CoStrict Cloud",
-      "secondaryCta": "查看使用手册",
       "imageAlt": "CoStrict Cloud 云端编程工作空间"
     },
     "section2": {
@@ -618,10 +607,10 @@
     },
     "finalCta": {
       "title": "准备好让 CoStrict CLI 接管你的开发循环了吗？",
-      "description": "立即开始，体验闭环开发的力量。",
+      "description": "从需求理解、代码编写，到测试与调试，让 Agent 在终端完成完整开发流程。",
       "primary": "立即开始",
-      "secondary": "了解 IDE 插件",
-      "ideCross": "更喜欢在编辑器中工作？了解 IDE 插件"
+      "crossPrompt": "习惯在 IDE 中开发？",
+      "crossAction": "了解 CoStrict IDE 插件"
     }
   },
   "footer": {
@@ -727,6 +716,7 @@
       "summary": "用户权益、模型能力、产品体验，8 月陆续升级。",
       "entrySummary": "用户权益、模型生态与产品能力三大升级现已全部上线。",
       "entryAction": "查看详情",
+      "endedBadge": "已结束",
       "heroEyebrow": "八月新章",
       "heroHeadline": "这个八月，CoStrict 持续进化",
       "heroLead": "围绕用户权益、模型能力与产品体验，一系列更新在八月逐步展开。",
@@ -876,7 +866,7 @@
       },
       "closingTitle": "8 月，把 AI 编程用得更深、用得更稳",
       "closingLead": "Credits 升级 · 新模型接入 · 产品能力全面进化 —— 立即登录 CoStrict 体验。",
-      "closingAction": "下载客户端"
+      "closingAction": "立即开始"
     },
     "activeTitle": "长期活动",
     "heroTag": "热门活动",
@@ -900,8 +890,8 @@
     "card3Desc": "如果你认可 CoStrict 的严肃编程理念，欢迎深度参与社区建设。前往 GitHub 支持项目，我们准备了一份 Credits 致谢奖励。",
     "card4Title": "CCF × CoStrict AI 原生创新大赛",
     "card4Btn": "了解详情",
-    "card4Desc": "2026 年 CCF 服务计算创新大赛暨深信服 CoStrict AI 原生创新大赛正式启动，面向全国高校学生，探索 AI 原生应用开发与智能体系统构建。",
-    "card4Badge": "进行中",
+    "card4Desc": "2026 年 CCF 服务计算创新大赛暨深信服 CoStrict AI 原生创新大赛，面向全国高校学生，聚焦 AI 原生应用开发与智能体系统构建。",
+    "card4Badge": "已结束",
     "tableColAction": "贡献行为",
     "tableColReward": "奖励",
     "contrib1": "点亮 Star",
@@ -1159,8 +1149,9 @@
       "eyebrow": "CoStrict插件",
       "title": "留在编辑器里，把下一项研发任务做完",
       "description": "让 AI 理解项目、完成修改，也把最终决定留给你。",
-      "primary": "安装 IDE 插件",
-      "secondary": "了解 CLI"
+      "primary": "立即开始",
+      "crossPrompt": "习惯在终端中开发？",
+      "crossAction": "了解 CoStrict CLI"
     }
   }
 }

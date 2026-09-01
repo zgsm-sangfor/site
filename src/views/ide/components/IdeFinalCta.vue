@@ -43,10 +43,14 @@ const toCli = () => router.push({ name: 'CliIndex' })
             class="cta-button cta-button-primary"
             :to="{ name: 'download', query: { tab: 'vscode' } }"
           >
-            {{ t('ide.finalCta.primary') }} <span aria-hidden="true">↓</span>
+            {{ t('ide.finalCta.primary') }}
           </RouterLink>
-          <button class="cta-button cta-button-secondary" type="button" @click="toCli">
-            {{ t('ide.finalCta.secondary') }} <span aria-hidden="true">→</span>
+          <button class="cta-cross-link" type="button" @click="toCli">
+            <span class="cta-cross-context">{{ t('ide.finalCta.crossPrompt') }}</span>
+            <span class="cta-cross-action">
+              {{ t('ide.finalCta.crossAction') }}
+              <span class="cta-cross-arrow" aria-hidden="true">→</span>
+            </span>
           </button>
         </div>
       </div>
@@ -99,9 +103,12 @@ const toCli = () => router.push({ name: 'CliIndex' })
   position: absolute;
   z-index: 1;
   inset: 0;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 66%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 66%, transparent 100%);
+  overflow: hidden;
+  opacity: 0.82;
   pointer-events: none;
+  contain: layout paint;
+  -webkit-mask-image: radial-gradient(ellipse 54% 70% at 50% 54%, #000 12%, transparent 78%);
+  mask-image: radial-gradient(ellipse 54% 70% at 50% 54%, #000 12%, transparent 78%);
 }
 
 .cta-inner {
@@ -140,11 +147,11 @@ const toCli = () => router.push({ name: 'CliIndex' })
 .cta-actions {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 14px;
-  margin-top: 26px;
+  gap: 24px;
+  margin-top: 32px;
 }
 
 .cta-button {
@@ -192,16 +199,51 @@ const toCli = () => router.push({ name: 'CliIndex' })
   }
 }
 
-.cta-button-secondary {
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  color: #edf2f7;
-  background: rgba(255, 255, 255, 0.045);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+.cta-cross-link {
+  display: inline-flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2px 7px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  line-height: 22px;
+  cursor: pointer;
 
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.065);
+  &:hover .cta-cross-action {
+    border-color: rgba(218, 230, 242, 0.55);
+    color: #e4edf6;
   }
+
+  &:focus-visible {
+    border-radius: 4px;
+    outline: 2px solid rgba(101, 207, 230, 0.62);
+    outline-offset: 2px;
+  }
+}
+
+.cta-cross-context {
+  color: #66778b;
+  font-size: 13px;
+}
+
+.cta-cross-action {
+  border-bottom: 1px solid rgba(185, 201, 217, 0.28);
+  color: #b9c9d9;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    border-color var(--motion-fast) ease,
+    color var(--motion-fast) ease;
+}
+
+.cta-cross-arrow {
+  display: inline-block;
+  margin-left: 3px;
 }
 
 @media (max-width: 767px) {
@@ -237,7 +279,8 @@ const toCli = () => router.push({ name: 'CliIndex' })
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cta-button {
+  .cta-button,
+  .cta-cross-action {
     transition: none;
   }
 }
