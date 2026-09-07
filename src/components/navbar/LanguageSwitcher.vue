@@ -60,12 +60,13 @@ const currentLangLabel = computed(() => {
   )
 })
 
-const handleSelect = (key: string) => {
+const handleSelect = async (key: string) => {
+  const allowedLocales = router.currentRoute.value.meta.localeVisible as string[] | undefined
+  if (allowedLocales && !allowedLocales.includes(key)) {
+    await router.push({ name: 'home' })
+  }
   locale.value = key
   setStoredLanguage(key)
-  if (key === 'en' && router.currentRoute.value.name === 'pricing') {
-    router.push({ name: 'home' })
-  }
   emit('update:isOpen', false)
 }
 </script>

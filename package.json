@@ -11,6 +11,8 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
+    "dev:leads": "node server/index.mjs",
+    "test:leads": "node --test server/enterpriseLead.test.mjs",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "test": "echo 'Testing framework not yet configured. Please run: pnpm add -D vitest @vue/test-utils happy-dom'",

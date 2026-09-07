@@ -8,6 +8,7 @@ const homeRoute = createPrefetchableRoute(() => import('@/views/home/index.vue')
 const cloudRoute = createPrefetchableRoute(() => import('@/views/cloud/index.vue'))
 const cliRoute = createPrefetchableRoute(() => import('@/views/cli/index.vue'))
 const ideRoute = createPrefetchableRoute(() => import('@/views/ide/index.vue'))
+const enterpriseRoute = createPrefetchableRoute(() => import('@/views/enterprise/index.vue'))
 const downloadRoute = createPrefetchableRoute(() => import('@/views/download/index.vue'))
 const pricingRoute = createPrefetchableRoute(() => import('@/views/pricing/PricingPage.vue'))
 const operationRoute = createPrefetchableRoute(() => import('@/views/operation/OperationPage.vue'))
@@ -45,6 +46,15 @@ export const routes = [
     path: '/ide',
     name: 'IdeIndex',
     component: ideRoute.load,
+  },
+  {
+    path: '/enterprise',
+    name: 'enterprise',
+    component: enterpriseRoute.load,
+    meta: {
+      localeVisible: ['zh'],
+      hideNavbar: true,
+    },
   },
   {
     path: '/download',
@@ -148,6 +158,7 @@ if (typeof window !== 'undefined') {
             blogRoute.prefetch,
             blogDetailRoute.prefetch,
             ccfCompetitionRoute.prefetch,
+            enterpriseRoute.prefetch,
           ]
         : []),
     ]

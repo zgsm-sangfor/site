@@ -24,12 +24,13 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 # ----------------------------
 FROM --platform=$BUILDPLATFORM nginx:stable-alpine AS runner
 
-# RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/
+RUN apk add --no-cache nodejs
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY server/enterpriseLead.mjs server/index.mjs /opt/costrict-leads/
 
 # 拷贝编译产物到 nginx
 COPY --from=builder /workshop/dist /usr/share/nginx/html
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "/opt/costrict-leads/index.mjs", "--with-nginx"]
