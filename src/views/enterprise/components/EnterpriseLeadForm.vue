@@ -172,9 +172,11 @@
             </label>
           </fieldset>
 
+          <TurnstileWidget ref="turnstileWidget" @token="turnstileToken = $event" />
+
           <p v-if="errorMessage" class="form-error" role="alert">{{ errorMessage }}</p>
 
-          <button class="lead-submit" type="submit" :disabled="isSubmitting">
+          <button class="lead-submit" type="submit" :disabled="isSubmitting || !turnstileToken">
             {{ t(isSubmitting ? 'enterprisePage.form.submitting' : 'enterprisePage.form.submit') }}
           </button>
         </form>
@@ -191,6 +193,7 @@
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ENTERPRISE_PHONE_PATTERN } from '../constants'
+import TurnstileWidget from '@/components/turnstile/TurnstileWidget.vue'
 import { useEnterpriseLead } from '../hooks/useEnterpriseLead'
 
 defineOptions({
@@ -213,6 +216,8 @@ const errors = reactive({ company: false, name: false, contact: false })
 form.scale = scaleOptions.value[0] ?? ''
 const { isSubmitting, isSubmitted, submitError, submitLead } = useEnterpriseLead()
 const errorMessage = ref('')
+const turnstileToken = ref('')
+const turnstileWidget = ref<InstanceType<typeof TurnstileWidget>>()
 
 const docsBase = computed(() => `https://docs.costrict.ai${locale.value === 'en' ? '/en' : ''}`)
 const termsUrl = computed(() => `${docsBase.value}/plugin/policy/terms-of-service`)
@@ -255,16 +260,24 @@ const handleSubmit = async () => {
     errorMessage.value = t('enterprisePage.form.errorContactInvalid')
     return
   }
+  if (!turnstileToken.value) {
+    errorMessage.value = t('enterprisePage.form.verificationRequired')
+    return
+  }
   if (!form.scale) form.scale = scaleOptions.value[0] ?? ''
 
-  await submitLead({
-    company: form.company,
-    name: form.name,
-    contact: form.contact,
-    scale: form.scale,
-    message: form.message.trim(),
-    consent: form.consent,
-  })
+  await submitLead(
+    {
+      company: form.company,
+      name: form.name,
+      contact: form.contact,
+      scale: form.scale,
+      message: form.message.trim(),
+      consent: form.consent,
+    },
+    turnstileToken.value,
+  )
+  if (!isSubmitted.value) turnstileWidget.value?.reset()
   if (submitError.value) errorMessage.value = t(`enterprisePage.form.${submitError.value}`)
 }
 </script>

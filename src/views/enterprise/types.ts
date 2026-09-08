@@ -7,4 +7,8 @@ export interface EnterpriseLeadInput {
   consent: boolean
 }
 
-export type EnterpriseLeadError = 'submitFailed' | 'serviceUnavailable' | 'tooManyRequests'
+export type EnterpriseLeadError =
+  | 'submitFailed'
+  | 'serviceUnavailable'
+  | 'tooManyRequests'
+  | 'verificationRequired'

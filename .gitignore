@@ -20,6 +20,8 @@ coverage
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
 .idea
 *.suo
 *.ntvs*
@@ -36,3 +38,6 @@ scripts/.blog-content-cache/
 public/blog-list.json
 public/blog-articles/
 public/blog-media/
+
+#
+public/resource/

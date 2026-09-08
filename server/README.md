@@ -1,3 +1,5 @@
+> 历史实现：当前 `/enterprise` 已迁移至 Go API + SQLite + Turnstile，前端不再调用此 Node 服务，容器也不再启动它。新部署和企微通知配置见 [API 说明](../../costrict-ai-api/README.md)。以下仅保留旧实现参考。
+
 # 企业咨询企微通知部署
 
 网页 POST `/api/enterprise-leads`，由同机 Node 服务通知企微群。

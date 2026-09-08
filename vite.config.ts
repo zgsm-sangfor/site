@@ -10,7 +10,8 @@ export default defineConfig({
   server: {
     port: 9002,
     proxy: {
-      '/api/enterprise-leads': 'http://127.0.0.1:3001',
+      '/site/api/': 'http://127.0.0.1:8080',
+      '/cloudflare/': 'http://127.0.0.1:8080',
     },
   },
   plugins: [

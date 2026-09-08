@@ -10,7 +10,7 @@ export function useEnterpriseLead() {
   let lastPayload = ''
   let requestId = ''
 
-  const submitLead = async (input: EnterpriseLeadInput) => {
+  const submitLead = async (input: EnterpriseLeadInput, turnstileToken: string) => {
     if (isSubmitting.value || isSubmitted.value) return
     isSubmitting.value = true
     submitError.value = null
@@ -25,16 +25,20 @@ export function useEnterpriseLead() {
       const response = await fetch(ENTERPRISE_LEAD_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...input, requestId }),
+        body: JSON.stringify({ ...input, requestId, turnstileToken }),
+        credentials: 'omit',
         signal: controller.signal,
       })
       if (!response.ok) {
+        const result = await response.json().catch(() => null)
         submitError.value =
-          response.status === 429
-            ? 'tooManyRequests'
-            : response.status === 503
-              ? 'serviceUnavailable'
-              : 'submitFailed'
+          result?.error === 'verification_failed'
+            ? 'verificationRequired'
+            : response.status === 429
+              ? 'tooManyRequests'
+              : response.status === 503
+                ? 'serviceUnavailable'
+                : 'submitFailed'
         return
       }
       const result: unknown = await response.json()

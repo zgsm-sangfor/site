@@ -1,4 +1,12 @@
 {
+  "enterprisePage": {
+    "form": {
+      "verificationRequired": "Please complete the security check and submit again.",
+      "verificationLoading": "Loading security check…",
+      "verificationUnavailable": "Security check unavailable. Please try again.",
+      "verificationRetry": "Reload verification"
+    }
+  },
   "header": {
     "appName": "CoStrict"
   },
