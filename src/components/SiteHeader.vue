@@ -64,6 +64,14 @@
           >
             {{ t('home.redesign.header.activity') }}
           </button>
+          <button
+            class="nav-pill-item"
+            :class="{ active: activeNav === 'enterprise' }"
+            type="button"
+            @click="toRoute('enterprise')"
+          >
+            {{ t('home.redesign.header.enterprise') }}
+          </button>
         </nav>
 
         <div class="actions-anchor" :class="{ 'is-morphing': scrollProgress > 0 }">
@@ -154,6 +162,13 @@
           <button type="button" @click="navigateMobile('operation')">
             {{ t('home.redesign.header.activity') }}
           </button>
+          <button
+            type="button"
+            :class="{ active: activeNav === 'enterprise' }"
+            @click="navigateMobile('enterprise')"
+          >
+            {{ t('home.redesign.header.enterprise') }}
+          </button>
         </nav>
       </Transition>
     </div>
@@ -225,7 +240,7 @@ const activeNav = computed(() => {
   const name = router.currentRoute.value.name as string
   if (name === 'blogDetail') return 'blog'
   if (['augustDeveloperMonth', 'ccfCompetition'].includes(name)) return 'operation'
-  if (['home', 'download', 'pricing', 'blog', 'operation'].includes(name)) return name
+  if (['home', 'download', 'pricing', 'blog', 'operation', 'enterprise'].includes(name)) return name
   return ''
 })
 const isProductNavigationActive = computed(() => {
