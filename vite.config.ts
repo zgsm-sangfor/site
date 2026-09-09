@@ -9,6 +9,10 @@ import compression from 'vite-plugin-compression'
 export default defineConfig({
   server: {
     port: 9002,
+    proxy: {
+      '/site/api/': 'http://127.0.0.1:8080',
+      '/cloudflare/': 'http://127.0.0.1:8080',
+    },
   },
   plugins: [
     vue(),

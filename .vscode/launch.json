@@ -1,0 +1,43 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "🚀 Launch Chrome (Dev)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:9002",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${webRoot}/*",
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "preLaunchTask": "dev-server",
+      "postDebugTask": "stop-dev-server"
+    },
+    {
+      "name": "🔗 Attach Chrome (Already Running)",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9222,
+      "url": "http://localhost:9002",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${webRoot}/*",
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    },
+    {
+      "name": "🌐 Launch Edge (Dev)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:9002",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${webRoot}/*",
+        "webpack:///src/*": "${webRoot}/*"
+      },
+      "preLaunchTask": "dev-server",
+      "postDebugTask": "stop-dev-server"
+    }
+  ]
+}

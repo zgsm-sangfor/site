@@ -15,6 +15,10 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+# Public API origin; empty uses the same-origin Nginx proxy.
+ARG VITE_API_BASE_URL=https://api.costrict.ai
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+
 # 构建前端
 RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
@@ -24,8 +28,7 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 # ----------------------------
 FROM --platform=$BUILDPLATFORM nginx:stable-alpine AS runner
 
-# RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 拷贝编译产物到 nginx
 COPY --from=builder /workshop/dist /usr/share/nginx/html

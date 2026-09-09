@@ -22,6 +22,299 @@
     "cloudDesc": "在线编码平台。",
     "new": "New"
   },
+  "enterprisePage": {
+    "hero": {
+      "eyebrow": "CoStrict 企业版",
+      "title": "企业级私有化部署",
+      "subtitle": "代码与数据留在企业网络内部，让 AI 能力真正进入企业研发基础设施。",
+      "primary": "咨询企业版"
+    },
+    "capabilities": {
+      "collaboration": {
+        "title": "大规模人机协作，让研发流程持续运转",
+        "visualLabel": "研发流程编排",
+        "visualStatus": "协同运行中",
+        "visual": {
+          "entry": "需求进入",
+          "inputLabel": "任务输入",
+          "scheduler": "智能任务调度",
+          "schedulerLabel": "编排中枢",
+          "schedulerDesc": "基于上下文与负载自动委派",
+          "humanLane": "人的工作流",
+          "agentLane": "AI Agent",
+          "executionLabel": "自主执行",
+          "decisionLabel": "人工决策",
+          "taskBreakdown": "任务拆解",
+          "taskBreakdownDesc": "拆分可执行工作单元",
+          "codingTest": "编码与测试",
+          "codingTestDesc": "常规任务持续推进",
+          "direction": "方向确认",
+          "directionDesc": "人确定目标与边界",
+          "approval": "关键审批",
+          "approvalDesc": "高风险节点人工确认",
+          "gate": "决策门禁",
+          "gateLabel": "质量门禁",
+          "delivery": "持续交付",
+          "deliveryLabel": "CI/CD"
+        },
+        "points": [
+          {
+            "title": "Agent 进入真实研发任务的执行层",
+            "desc": "面向多仓库修改、代码生成与重构、测试补齐、构建执行、日志分析与自动修复等任务，Agent 不只给出建议，而是持续推进执行并带回结果。"
+          },
+          {
+            "title": "把人机协作嵌入企业研发流程",
+            "desc": "将质量规则、审批制度、安全门禁和发布标准配置进任务流程，研发人员可以查看进展，并在关键节点确认、调整或接管。"
+          }
+        ]
+      },
+      "knowledge": {
+        "title": "组织资产持续沉淀，让优秀实践可复用",
+        "visualLabel": "企业知识与 Skill 中心",
+        "visualStatus": "持续沉淀中",
+        "visual": {
+          "sourcesLabel": "组织知识来源",
+          "sources": ["代码仓库", "研发文档", "PR 与决策"],
+          "hub": "企业知识中心",
+          "hubDesc": "语义化组织与持续更新",
+          "factory": "Skill 工厂",
+          "factoryDesc": "将优秀实践封装为能力",
+          "distribution": "全员分发",
+          "distributionDesc": "一键拉齐团队研发标准"
+        },
+        "points": [
+          {
+            "title": "形成可理解、可召回的企业研发上下文",
+            "desc": "持续汇聚代码、依赖、技术栈与规范，以及历史 PR/MR、测试发布记录和需求、代码、缺陷之间的关联，让 Agent 真正理解企业项目。"
+          },
+          {
+            "title": "让组织知识成为可执行、可验证的能力",
+            "desc": "通过知识库、Rules、MCP 与 Skill，将团队最佳实践封装为可调用的研发能力，并结合 Agent 执行轨迹和人工反馈持续更新。"
+          }
+        ]
+      },
+      "quality": {
+        "title": "企业级端到端高质量交付",
+        "visualLabel": "研发质量交付链",
+        "visualStatus": "质量关卡持续校验",
+        "points": [
+          {
+            "title": "质量标准贯穿完整交付链路",
+            "desc": "把质量要求嵌入代码生成、构建、测试、扫描、评审与发布过程，让每个关键环节都有明确的检查和验收依据。"
+          },
+          {
+            "title": "问题从发现、返修到复验形成闭环",
+            "desc": "结合自动化检查、代码审查与人工确认，推动问题修复并重新验证，同时将线上反馈带回研发流程持续改进。"
+          }
+        ],
+        "visual": {
+          "workflow": {
+            "standard": {
+              "badge": "Spec",
+              "title": "验收标准已确认",
+              "status": "已进入基线",
+              "desc": "需求边界、技术方案与验收条件进入交付基线。"
+            },
+            "change": {
+              "badge": "代码变更",
+              "title": "本次变更进入审查",
+              "file": "src/auth/session.ts",
+              "fileStatus": "待验收",
+              "added": "+12",
+              "removed": "-6",
+              "removedLine": "refreshToken = nextToken",
+              "addedLine": "refreshToken = await refreshLock.run()"
+            },
+            "review": {
+              "badge": "审查返修",
+              "title": "发现问题并完成返修",
+              "status": "复验通过",
+              "issue": "发现刷新令牌存在并发覆盖风险",
+              "resolution": "Agent 修复后重新运行测试与审查。",
+              "reviewers": ["自动化测试", "代码审查", "人工确认"]
+            },
+            "gate": {
+              "badge": "发布门禁",
+              "title": "交付证据完整",
+              "status": "可交付",
+              "desc": "测试、审查与验收结果齐全，确认后进入交付。"
+            }
+          }
+        }
+      },
+      "metrics": {
+        "title": "项目进展可视，AI 研发效能可衡量",
+        "visualAlt": "CoStrict 企业版效能看板界面预览",
+        "highlightTrigger": "查看效能趋势亮点",
+        "points": [
+          {
+            "title": "项目进展与执行状态一目了然",
+            "desc": "围绕项目和任务统一查看执行进展、交付周期与任务状态，帮助团队及时掌握整体推进情况并发现阻塞。"
+          },
+          {
+            "title": "从组织到个人的多层级度量",
+            "desc": "从公司、部门、团队到个人，统一查看 AI 活跃度、需求交付周期、任务时长与资源消耗，判断 AI 在研发全生命周期中的真实价值并定位瓶颈。"
+          }
+        ],
+        "pins": [
+          { "title": "多维效能度量", "desc": "用量、效能、成本、贡献与需求等维度可切换查看" },
+          { "title": "测算口径透明", "desc": "指标定义与计算公式清晰可解释，度量结果有据可查" },
+          { "title": "数据清晰呈现", "desc": "关键指标、变化趋势与数据构成通过图表直观展示" }
+        ]
+      }
+    },
+    "compare": {
+      "title": "为什么需要企业版",
+      "subtitle": "从 AI 工具，走向真正属于企业自己的研发基础设施。",
+      "personal": "个人版",
+      "enterprise": "企业版",
+      "enterpriseVisualAlt": "CoStrict 企业版 AI 网关架构图",
+      "rows": [
+        {
+          "label": "部署形态",
+          "personal": "Cloud 在线服务、CLI 与 IDE 插件",
+          "enterprise": "部署在企业内网，完全私有"
+        },
+        {
+          "label": "数据边界",
+          "personal": "由云端服务承载",
+          "enterprise": "搭配内网模型，代码与敏感信息不出企业网络"
+        },
+        {
+          "label": "管控能力",
+          "personal": "无管理端，开箱即用",
+          "enterprise": "效能看板、审计日志、身份认证与权限管控"
+        }
+      ]
+    },
+    "forms": {
+      "title": "企业版包含什么",
+      "subtitle": "效能看板、模型接入、IDE 与 CLI，以四种形态进入你的研发体系。",
+      "altIde": "CoStrict IDE 插件（VSCode）界面",
+      "altCli": "CoStrict CLI 命令行界面",
+      "diagramGateway": "AI 网关",
+      "diagramInternal": "内网自托管模型",
+      "diagramExternal": "外部模型 API",
+      "cards": [
+        {
+          "title": "效能看板",
+          "desc": "生成量、采纳率、审查修复与成本节约，AI 投入产出全程可见。",
+          "points": ["团队效能趋势实时追踪", "成员激活与使用透明", "成本可控，节约可算"]
+        },
+        {
+          "title": "模型接入",
+          "desc": "私有化部署不包含模型。企业自主选择任何兼容 /v1/chat/completions 接口的模型，由 AI 网关统一接入管理。",
+          "points": [
+            "兼容 OpenAI 接口规范的模型均可接入",
+            "内网自托管模型：代码与数据不出网",
+            "外部商用模型 API：按企业合规自选"
+          ]
+        },
+        {
+          "title": "IDE 插件",
+          "desc": "VSCode 与 JetBrains 插件，安装即用，不改变团队开发习惯。",
+          "points": [
+            "VSCode 与 JetBrains 均已支持",
+            "完整 AI 编程能力开箱即用",
+            "与个人版同一体验，接入企业统一审计与管控"
+          ]
+        },
+        {
+          "title": "CLI",
+          "desc": "命令行进入 CI/CD 流水线，支撑自动化与批处理场景。",
+          "points": [
+            "批量重构、迁移与测试补齐",
+            "可脚本化调用，接入流水线",
+            "与 IDE 共用企业 AI 网关"
+          ]
+        }
+      ]
+    },
+    "security": {
+      "title": "可私有化部署，研发资产由企业自主掌控",
+      "subtitle": "从模型、代码、知识到操作记录，部署边界、访问权限和审计链路均可纳入企业现有治理体系。",
+      "items": [
+        {
+          "title": "企业内网部署",
+          "desc": "支持部署在企业自有环境，代码与敏感数据留在企业网络内部。"
+        },
+        {
+          "title": "数据安全保护",
+          "desc": "对代码和研发数据的传输、存储与调用过程提供安全保护。"
+        },
+        {
+          "title": "全过程审计",
+          "desc": "操作行为与模型调用全程留痕，便于追溯、检查和合规审计。"
+        },
+        {
+          "title": "企业身份与权限",
+          "desc": "对接企业现有身份体系和权限边界，统一管理人员与能力访问。"
+        }
+      ]
+    },
+    "caseStudy": {
+      "eyebrow": "客户实践",
+      "previous": "查看上一个案例",
+      "next": "查看下一个案例",
+      "cards": [
+        {
+          "id": "finance",
+          "organization": "某金融机构",
+          "role": "金融行业 · 内网私有化部署",
+          "title": "某金融机构：构建全流程 AI 研发体系",
+          "paragraphs": [
+            "某金融机构基于 CoStrict 在内网私有化部署 AI 研发环境，构建覆盖需求、设计、开发、测试、交付与运行全生命周期的 AI 研发链，推动 AI 从单点辅助编码走向研发全流程应用。",
+            "目前，机构内部已形成 IDE 插件、CLI、Web IDE、移动端等多元化 AI 研发入口，并围绕实际业务场景持续建设知识空间、产品空间、智能体与 Skill，将项目知识、研发经验和 AI 能力沉淀为可复用的组织资产。"
+          ],
+          "placeholder": false
+        }
+      ]
+    },
+    "closing": {
+      "title": "让 AI Coding\n真正进入企业研发体系",
+      "desc": "从协作、资产到质量与治理，为规模化落地提供完整支撑。",
+      "bullets": [
+        "大规模人机协作",
+        "组织资产持续沉淀",
+        "质量可控、效能可衡量",
+        "私有化部署与安全管控"
+      ]
+    },
+    "form": {
+      "title": "咨询企业版",
+      "subtitle": "留下联系方式，我们会尽快与你沟通企业级 AI Coding 建设与落地方案。",
+      "company": "公司",
+      "name": "姓名",
+      "contact": "手机号",
+      "scale": "团队规模",
+      "scaleOptions": ["20 人以下", "20–100 人", "100–500 人", "500 人以上"],
+      "topic": "咨询类型",
+      "topicValue": "企业版方案咨询",
+      "companyPlaceholder": "公司或组织名称",
+      "namePlaceholder": "你的姓名",
+      "contactPlaceholder": "请输入 11 位手机号",
+      "message": "留言",
+      "messagePlaceholder": "希望解决的问题或想了解的内容（选填）",
+      "errorContactInvalid": "请填写有效的 11 位手机号",
+      "consentBefore": "已阅读",
+      "consentTerms": "服务条款",
+      "consentAnd": "和",
+      "consentPrivacy": "隐私政策",
+      "consentAfter": "，并同意 CoStrict 就本次咨询通过上述联系方式与我联系。",
+      "submit": "提交咨询",
+      "submitting": "正在提交…",
+      "successTitle": "已收到你的咨询信息",
+      "successDesc": "我们会尽快通过电话与你联系，沟通企业版方案。",
+      "verificationRequired": "请完成安全验证后重新提交。",
+      "verificationLoading": "正在加载安全验证…",
+      "verificationUnavailable": "安全验证暂不可用，请重试。",
+      "verificationRetry": "重新加载验证",
+      "submitFailed": "暂时无法确认提交结果，请稍后重试。你填写的内容已保留。",
+      "serviceUnavailable": "咨询服务暂时不可用，请稍后重试。你填写的内容已保留。",
+      "tooManyRequests": "提交过于频繁，请等待一分钟后重试。你填写的内容已保留。",
+      "errorRequired": "请完整填写公司、姓名、手机号，并勾选同意"
+    }
+  },
   "home": {
     "redesign": {
       "seo": {
@@ -823,44 +1116,25 @@
             "label": "企业级开发场景",
             "title": "更贴近企业级开发",
             "description": "连接 Cloud 与远程 CLI，串联需求、编码、测试和审查，以纵深安全守护核心代码。",
-            "tags": [
-              "Cloud 云端",
-              "远程 CLI",
-              "全流程闭环",
-              "纵深安全"
-            ]
+            "tags": ["Cloud 云端", "远程 CLI", "全流程闭环", "纵深安全"]
           },
           "knowledge": {
             "label": "组织知识",
             "title": "助力研发组织持续进化",
             "description": "沉淀企业知识库、共享团队技能，\n让个人经验成为组织可复用的研发资产。",
-            "tags": [
-              "企业知识库",
-              "技能市场",
-              "组织沉淀"
-            ]
+            "tags": ["企业知识库", "技能市场", "组织沉淀"]
           },
           "metrics": {
             "label": "效能衡量",
             "title": "多层级 AI Coding 数据看板",
             "description": "从公司、部门、团队到个人，统一衡量 AI 活跃度、代码采纳率与自动生成占比。",
-            "tags": [
-              "公司",
-              "部门",
-              "团队",
-              "个人"
-            ]
+            "tags": ["公司", "部门", "团队", "个人"]
           },
           "collaboration": {
             "label": "协作方式",
             "title": "更高效的人机协作",
             "description": "将 Agent 嵌入研发交付流程，自动承接重复任务，关键决策仍由人审核。",
-            "tags": [
-              "编码",
-              "评审",
-              "测试",
-              "发布"
-            ]
+            "tags": ["编码", "评审", "测试", "发布"]
           }
         }
       },
