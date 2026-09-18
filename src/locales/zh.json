@@ -323,6 +323,7 @@
         "organizationDescription": "CoStrict 是面向真实研发流程的企业级 AI 编程平台"
       },
       "header": {
+        "home": "首页",
         "product": "产品",
         "pricing": "定价",
         "docs": "文档",
@@ -921,6 +922,10 @@
     "joinGroupDesc": "与开发者们一起交流 AI 编程经验",
     "joinGroupLabel": "交流群"
   },
+  "siteAnnouncement": {
+    "message": "CoStrict 使用方式调整：因聚焦企业服务，个人 Credits 将于9月24日起不再提供购买。产品仍可用，已购额度有效期内可用。",
+    "action": "查看详情"
+  },
   "download": {
     "title": "欢迎使用 CoStrict",
     "desc": "CoStrict 是一款开源、实用的研发编程工具，基于代码大模型，实现代码补全、智能问答、代码审查、代码优化、单测编写、注释生成等功能。",
@@ -1207,6 +1212,25 @@
   "pricing": {
     "title": "价格套餐",
     "subtitle": "根据实际需求选择合适套餐方案",
+    "purchaseUnavailable": "当前不可购买",
+    "notice": {
+      "title": "关于CoStrict 额度充值服务调整的通知",
+      "salutation": "亲爱的 CoStrict 用户：",
+      "thanks": "感谢大家一直以来对 CoStrict 的支持。",
+      "strategy": "因业务战略调整，CoStrict 未来将进一步聚焦企业级产品与服务，并将停止面向个人用户提供 Credits 充值服务。",
+      "deadline": "Credits充值功能预计将于2026年9月23日23:59下线，",
+      "deadlineRest": "在此之前已购买或通过获得的 Credits 不受影响，您仍可按照购买时约定的有效期及使用规则正常使用。",
+      "impact": "本次调整仅涉及 Credits 充值服务，不影响 CoStrict 产品的正常使用。",
+      "apiPrefix": "Credits充值服务下线后，您仍可以通过配置支持的",
+      "apiLink": "第三方模型 API Key",
+      "apiSuffix": "继续使用CoStrict的相关功能。",
+      "enterprisePrefix": "如您是企业客户，并有产品采购、私有化部署或相关服务需求，欢迎通过",
+      "enterpriseLink": "企业版咨询",
+      "enterpriseSuffix": "与我们联系。",
+      "closing": "感谢您的理解与一直以来的支持。",
+      "team": "CoStrict 团队",
+      "date": "2026 年 9 月 18 日"
+    },
     "operationGuide": "操作指引：",
     "tips": " 部分模型夜间（每日 20:00 - 次日 09:00）和周末全天半价，可以和auto模式九折叠加",
     "survey": {

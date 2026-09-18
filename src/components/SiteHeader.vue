@@ -4,16 +4,13 @@
     :class="{
       'is-morphing': scrollProgress > 0,
       'is-overlay': isOverlayRoute,
+      'has-announcement': !isEnglish && !isPricingRoute,
     }"
     :style="navStyle"
   >
     <div class="main-nav-row">
       <div class="main-nav-inner">
-        <button
-          class="brand-anchor"
-          type="button"
-          @click="toHome"
-        >
+        <button class="brand-anchor" type="button" @click="toHome">
           <img src="@/assets/home/redesign/navbar-logo.svg" alt="CoStrict" />
         </button>
 
@@ -22,6 +19,14 @@
           :class="{ 'is-morphing': scrollProgress > 0 }"
           aria-label="Primary navigation"
         >
+          <button
+            class="nav-pill-item"
+            :class="{ active: activeNav === 'home' }"
+            type="button"
+            @click="toHome"
+          >
+            {{ t('home.redesign.header.home') }}
+          </button>
           <ProductMenu v-if="!isEnglish" class="home-product-menu" />
           <template v-else>
             <button
@@ -57,6 +62,7 @@
             {{ t('home.redesign.header.blog') }}
           </button>
           <button
+            v-if="!isCreditsServiceEnded"
             class="nav-pill-item"
             :class="{ active: activeNav === 'operation' }"
             type="button"
@@ -107,6 +113,13 @@
           class="mobile-nav-sheet"
           aria-label="Mobile navigation"
         >
+          <button
+            type="button"
+            :class="{ active: activeNav === 'home' }"
+            @click="navigateMobile('home')"
+          >
+            {{ t('home.redesign.header.home') }}
+          </button>
           <div v-if="!isEnglish" class="mobile-nav-product">
             <button
               class="mobile-nav-product-trigger"
@@ -159,7 +172,7 @@
           <button v-if="!isEnglish" type="button" @click="navigateMobile('blog')">
             {{ t('home.redesign.header.blog') }}
           </button>
-          <button type="button" @click="navigateMobile('operation')">
+          <button v-if="!isCreditsServiceEnded" type="button" @click="navigateMobile('operation')">
             {{ t('home.redesign.header.activity') }}
           </button>
           <button
@@ -182,6 +195,7 @@ import { useRouter, type RouteLocationRaw } from 'vue-router'
 import GithubStars from '@/components/navbar/GithubStars.vue'
 import LanguageSwitcher from '@/components/navbar/LanguageSwitcher.vue'
 import ProductMenu from '@/components/navbar/ProductMenu.vue'
+import { useCreditsServiceCutoff } from '@/hooks/useCreditsServiceCutoff'
 
 defineOptions({
   name: 'SiteHeader',
@@ -196,6 +210,7 @@ interface ProductNavigationItem {
 
 const { t, locale } = useI18n()
 const router = useRouter()
+const { isCreditsServiceEnded } = useCreditsServiceCutoff()
 const isEnglish = computed(() => locale.value === 'en')
 const scrollProgress = ref(0)
 const isLanguageSwitcherOpen = ref(false)
@@ -206,6 +221,7 @@ const docsUrl = computed(() => `https://docs.costrict.ai${locale.value === 'en' 
 const NAV_MORPH_DISTANCE = 72
 const GLASS_REVEAL_START = 48
 const isHomeRoute = computed(() => router.currentRoute.value.name === 'home')
+const isPricingRoute = computed(() => router.currentRoute.value.name === 'pricing')
 const isOverlayRoute = computed(
   () => !['home', 'augustDeveloperMonth'].includes(router.currentRoute.value.name as string),
 )
@@ -349,10 +365,16 @@ onBeforeUnmount(() => {
 
 <style scoped lang="less">
 .home-header {
+  --announcement-height: 0px;
+
   position: relative;
   z-index: var(--z-navbar);
   height: 60px;
   background: var(--color-home-bg);
+
+  &.has-announcement {
+    --announcement-height: 40px;
+  }
 
   &.is-overlay {
     height: 0;
@@ -360,11 +382,10 @@ onBeforeUnmount(() => {
     .main-nav-row {
       position: fixed;
       z-index: var(--z-navbar);
-      top: var(--nav-top);
+      top: calc(var(--announcement-height) + var(--nav-top));
       right: 0;
       left: 0;
     }
-
   }
 
   &.is-morphing {
@@ -407,8 +428,7 @@ onBeforeUnmount(() => {
   white-space: nowrap;
   cursor: pointer;
   opacity: var(--brand-opacity);
-  transition:
-    opacity 200ms ease;
+  transition: opacity 200ms ease;
 
   img {
     display: block;
@@ -420,7 +440,7 @@ onBeforeUnmount(() => {
 .nav-pill {
   position: fixed;
   z-index: var(--z-navbar);
-  top: var(--nav-top);
+  top: calc(var(--announcement-height) + var(--nav-top));
   left: 50%;
   display: flex;
   align-items: center;
@@ -541,7 +561,7 @@ onBeforeUnmount(() => {
   &.is-morphing {
     position: fixed;
     z-index: var(--z-navbar);
-    top: var(--nav-top);
+    top: calc(var(--announcement-height) + var(--nav-top));
     right: max(80px, calc((100vw - var(--home-content-max-width)) / 2));
     height: var(--nav-height);
   }
@@ -630,7 +650,7 @@ onBeforeUnmount(() => {
 .mobile-nav-sheet {
   position: fixed;
   z-index: calc(var(--z-navbar) + 1);
-  top: calc(var(--nav-top) + var(--nav-height) + 8px);
+  top: calc(var(--announcement-height) + var(--nav-top) + var(--nav-height) + 8px);
   right: 32px;
   display: grid;
   min-width: 176px;
@@ -771,6 +791,10 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 767px) {
+  .home-header.has-announcement {
+    --announcement-height: 48px;
+  }
+
   .main-nav-inner {
     width: calc(100% - 48px);
   }
