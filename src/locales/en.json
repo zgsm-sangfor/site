@@ -38,6 +38,7 @@
         "organizationDescription": "CoStrict is an enterprise AI coding platform built for real R&D workflows."
       },
       "header": {
+        "home": "Home",
         "product": "Product",
         "pricing": "Pricing",
         "docs": "Docs",
@@ -636,6 +637,10 @@
     "joinGroupDesc": "Connect with developers and share AI coding experiences",
     "joinGroupLabel": "Community Group"
   },
+  "siteAnnouncement": {
+    "message": "Service update: Personal Credits purchases will no longer be available starting September 24. CoStrict remains available, and purchased Credits remain valid.",
+    "action": "Learn more"
+  },
   "download": {
     "title": "CoStrict",
     "desc": "CoStrict is an open source and practical AI programmer that implements functions such as code completion, intelligent Q&A, code review, code optimization, single test writing, and comment generation based on the open source big model.",
@@ -941,6 +946,25 @@
   "pricing": {
     "title": "Pricing Plans",
     "subtitle": "Choose the right package according to your actual needs",
+    "purchaseUnavailable": "Currently unavailable",
+    "notice": {
+      "title": "Notice Regarding Changes to CoStrict Credits Top-up Services",
+      "salutation": "Dear CoStrict users,",
+      "thanks": "Thank you for your continued support of CoStrict.",
+      "strategy": "Due to a business strategy adjustment, CoStrict will focus further on enterprise products and services and will stop providing Credits top-up services to individual users.",
+      "deadline": "Credits top-ups are expected to end at 23:59 on September 23, 2026. ",
+      "deadlineRest": "Credits purchased or otherwise obtained before that time will not be affected and may continue to be used according to their original validity period and usage rules.",
+      "impact": "This adjustment applies only to Credits top-up services and does not affect normal use of CoStrict.",
+      "apiPrefix": "After Credits top-ups end, you can continue using CoStrict features by configuring a supported ",
+      "apiLink": "third-party model API key",
+      "apiSuffix": ".",
+      "enterprisePrefix": "If you are an enterprise customer with purchasing, private deployment, or service needs, contact us through the ",
+      "enterpriseLink": "enterprise consultation form",
+      "enterpriseSuffix": ".",
+      "closing": "Thank you for your understanding and continued support.",
+      "team": "The CoStrict Team",
+      "date": "September 18, 2026"
+    },
     "operationGuide": "Operation Guide:",
     "tips": " Some models are half price at night (8:00 PM - 9:00 AM the next day) and all day on weekends, which can be combined with a 10% discount on auto mode.",
     "survey": {

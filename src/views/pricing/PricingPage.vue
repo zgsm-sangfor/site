@@ -1,6 +1,6 @@
 <template>
   <div class="pricing-page-shell">
-    <div class="pricing-page pt-39.5 pb-23 relative">
+    <div class="pricing-page pt-24 pb-23 relative">
       <img
         src="../../assets/price/bg_1.png"
         alt="background"
@@ -55,12 +55,40 @@
     </div>
     -->
       <div class="pricing-page__title text-3xl text-center">{{ t('pricing.title') }}</div>
-      <div class="pricing-page__subTitle text-center mt-7.5 opacity-70 text-base">
-        {{ t('pricing.subtitle') }}
-      </div>
-      <div class="text-center mt-2 text-base">
-        🎯<span class="pricing-page__tips">{{ t('pricing.tips') }}</span>
-      </div>
+
+      <section class="pricing-notice" aria-labelledby="pricing-notice-title">
+        <div class="pricing-notice__header">
+          <h1 id="pricing-notice-title">{{ t('pricing.notice.title') }}</h1>
+        </div>
+        <div class="pricing-notice__body">
+          <div class="pricing-notice__intro">
+            <span>{{ t('pricing.notice.salutation') }}</span>
+          </div>
+          <p class="pricing-notice__message">
+            <span class="pricing-notice__thanks">{{ t('pricing.notice.thanks') }}</span>
+            {{ t('pricing.notice.strategy') }}<strong>{{ t('pricing.notice.deadline') }}</strong
+            >{{ t('pricing.notice.deadlineRest') }}{{ t('pricing.notice.impact')
+            }}{{ t('pricing.notice.apiPrefix') }}
+            <a
+              class="pricing-notice__inline-link"
+              href="https://docs.costrict.ai/plugin/guide/api-integration"
+              target="_blank"
+              rel="noopener"
+              >{{ t('pricing.notice.apiLink') }}</a
+            >
+            {{ t('pricing.notice.apiSuffix') }}{{ t('pricing.notice.enterprisePrefix') }}
+            <a class="pricing-notice__inline-link" href="/enterprise#enterprise-lead">{{
+              t('pricing.notice.enterpriseLink')
+            }}</a>
+            {{ t('pricing.notice.enterpriseSuffix') }}{{ t('pricing.notice.closing') }}
+          </p>
+          <div class="pricing-notice__signature">
+            <span>{{ t('pricing.notice.team') }}</span>
+            <span>{{ t('pricing.notice.date') }}</span>
+          </div>
+        </div>
+      </section>
+
       <div class="pricing-page__content mt-7">
         <div class="content-version grid grid-cols-4 gap-5">
           <div
@@ -102,10 +130,16 @@
               :class="{
                 'btn-purchase': plan.buttonType === 'purchase',
                 'btn-download': plan.buttonType !== 'purchase',
+                'is-disabled': plan.buttonType === 'purchase' && isPurchaseDisabled,
               }"
-              @click="plan.clickEvent"
+              :aria-disabled="plan.buttonType === 'purchase' && isPurchaseDisabled"
+              @click="handlePlanClick(plan)"
             >
-              {{ plan.buttonText }}
+              {{
+                plan.buttonType === 'purchase' && isPurchaseDisabled
+                  ? t('pricing.purchaseUnavailable')
+                  : plan.buttonText
+              }}
             </div>
             <ul class="content-version__item-features text-xs mt-5">
               <li
@@ -123,7 +157,10 @@
                 <p class="ml-2">{{ feature.text }}</p>
               </li>
             </ul>
-            <div v-if="index === 0" class="content-version__item-activity mt-4">
+            <div
+              v-if="index === 0 && !isPurchaseDisabled"
+              class="content-version__item-activity mt-4"
+            >
               <span
                 class="text-xs text-[#2A7FFF] cursor-pointer hover:underline"
                 @click="toOperation"
@@ -141,6 +178,7 @@
         >
       </div>
     </div>
+    <HomeFooter :always-visible="true" />
   </div>
 </template>
 
@@ -148,14 +186,23 @@
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@unhead/vue'
 import { useRouter } from 'vue-router'
+import { useCreditsServiceCutoff } from '@/hooks/useCreditsServiceCutoff'
+import HomeFooter from '@/views/home/components/HomeFooter.vue'
 import { createPricingPlans } from './const'
 import { computed } from 'vue'
+import type { PricingPlan } from './interface'
 
 const { t } = useI18n()
 const router = useRouter()
+const { isCreditsServiceEnded: isPurchaseDisabled } = useCreditsServiceCutoff()
 
 // 使用国际化函数创建价格套餐和指南步骤
 const pricingPlans = computed(() => createPricingPlans(t))
+
+const handlePlanClick = (plan: PricingPlan) => {
+  if (plan.buttonType === 'purchase' && isPurchaseDisabled.value) return
+  plan.clickEvent()
+}
 
 // 问卷入口已屏蔽
 // const SURVEY_URL = 'https://v.wjx.cn/vm/t7BdP0M.aspx'
@@ -233,12 +280,85 @@ const toOperation = () => {
     }
   }
 
-  &__tips {
-    background: linear-gradient(91deg, #00ffb7 0%, #ffffff 101%, #c5dbff 150%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
+  .pricing-notice {
+    position: relative;
+    margin-top: 48px;
+    padding: 34px 28px 24px;
+    border-top: 1px solid rgba(118, 151, 190, 0.22);
+    border-bottom: 1px solid rgba(118, 151, 190, 0.22);
+    background: rgba(9, 15, 23, 0.72);
+
+    &__header {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      max-width: calc(100% - 48px);
+      transform: translate(-50%, -50%);
+    }
+
+    h1 {
+      margin: 0;
+      padding: 9px 24px;
+      border: 1px solid rgba(118, 151, 190, 0.3);
+      border-radius: 6px;
+      background: #090f17;
+      color: #f3f7fb;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    &__intro {
+      display: grid;
+      gap: 4px;
+      color: #9eafc1;
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    &__body {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    p {
+      margin: 0;
+      color: #9eafc1;
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    &__message strong {
+      color: #dce7f2;
+      font-weight: 600;
+    }
+
+    &__thanks {
+      display: block;
+    }
+
+    &__inline-link {
+      color: #75bfff;
+      text-decoration: none;
+
+      &:hover,
+      &:focus-visible {
+        color: #a9dcff;
+        text-decoration: underline;
+        outline: none;
+      }
+    }
+
+    &__signature {
+      display: grid;
+      justify-items: end;
+      color: #9eafc1;
+      font-size: 13px;
+      line-height: 20px;
+    }
   }
 
   &__content {
@@ -275,6 +395,13 @@ const toOperation = () => {
 
           &.btn-purchase {
             background: linear-gradient(91deg, #005eff -9%, #00ffb7 104%);
+          }
+
+          &.is-disabled {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.42);
+            background: rgba(255, 255, 255, 0.07);
+            cursor: not-allowed;
           }
 
           &.btn-download {
@@ -336,6 +463,30 @@ const toOperation = () => {
           linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         z-index: -1;
+      }
+    }
+  }
+
+  @media (max-width: 960px) {
+    .pricing-notice {
+      padding: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .pricing-notice {
+      margin-top: 58px;
+      padding: 48px 16px 20px;
+
+      &__header {
+        width: calc(100% - 32px);
+      }
+
+      h1 {
+        padding: 8px 14px;
+        font-size: 19px;
+        line-height: 27px;
+        white-space: normal;
       }
     }
   }
